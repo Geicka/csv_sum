@@ -7,7 +7,7 @@ from pysummarization.abstractabledoc.top_n_rank_abstractor import TopNRankAbstra
 
 
 def loadDataAsDataFrame(f_path):
-    df = pd.read_csv(f_path)
+    df = pd.read_csv(f_path, encoding="ISO-8859-1")
     return df
 
 def header():
@@ -35,8 +35,8 @@ def NLP_summarize(description: str):
     # Summarize document.
     result_dict = auto_abstractor.summarize(description, abstractable_doc)
     
-    print(result_dict)
-    print()
+    # print(result_dict)
+    # print()
 
     # Output result. Find sentence with the maximum score value
     maxi = [0, 0]
@@ -57,18 +57,8 @@ title = head[0]
 body = head[6]
 
 blah = []
-count = 0
-# testing
 for line in body:
     if pd.notna(line):
         num_sent = len(st(line))
-        count+=1
         if num_sent > 1:
-            # use NLP summarizer from gtech teams code to store the summary in a new list
-            # NLP_summarize(line)
-            print('yay')
-        else:
-            print('boo!')
-            break
-                        
-NLP_summarize(line)
+            blah.append(NLP_summarize(line))
